@@ -8,6 +8,7 @@ import json
 import os
 import sys
 import math
+import urllib  
 
 import rosgraph.impl.graph
 import rospy
@@ -21,10 +22,6 @@ from std_msgs.msg import String
 
 
 ID = '/rosnode'
-
-
-
-
 
 class aaa():
     def  __init__(self):
@@ -51,7 +48,7 @@ class aaa():
                                     '左转',
                                     '右转',
                                     ]
-        rospy.loginfo("Ready to receive voice commands")
+        rospy.loginfo("Ready to receive weixin commands")
 
 def get_node_names(namespace=None):
 
@@ -132,27 +129,20 @@ class MyServerProtocol(WebSocketServerProtocol):
 
         print ("linear speed : " + str(self.cmd_vel.linear.x))
         print ("angular speed: " + str(self.cmd_vel.angular.z))        
-        deltaT=0.2
 
-        deltaX=(self.cmd_vel.linear.x)*deltaT*(math.cos(self.cmd_vel.angular.z*deltaT))
-        deltaY=(self.cmd_vel.linear.x)*deltaT*(math.sin(self.cmd_vel.angular.z*deltaT))
-        
-        
-        print ("X : " + str(deltaX*100))
-        print ("Y : " + str(deltaY*100))
-  
-       
-        self.cmd_vel_pub.publish(self.cmd_vel)  
+
+        site1_X = "10"
+        site1_Y = "10"
+        site2_X = "50"
+        site2_Y = "50"
+
+
+        self.sendMessage((site1_X+site1_Y).encode("UTF-8") ,isBinary)
+
 
         self.sendMessage(payload, isBinary)
 
-
-
-
         
-
-
-
 
 
 
